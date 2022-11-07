@@ -1,2 +1,2 @@
-# Implementation of a trivia quiz in multiplayer mode
+# Implementation of a multiplayer trivia quiz
 Based on Python networking course
