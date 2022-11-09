@@ -19,7 +19,11 @@ PROTOCOL_CLIENT = {
 	'send_answer_msg': 'SEND_ANSWER',
 	'my_score_msg': 'MY_SCORE',
 	'highscore_msg': 'HIGHSCORE',
-	'login_ok_msg': 'LOGIN_OK',
+}
+
+PROTOCOL_SERVER = {
+	"login_ok_msg": "LOGIN_OK",
+	"logout_msg": "LOGOUT",
 	'logged_answer_msg': 'LOGGED_ANSWER',
 	'your_question_msg': 'YOUR_QUESTION',
 	'correct_answer_msg': 'CORRECT_ANSWER',
@@ -27,13 +31,9 @@ PROTOCOL_CLIENT = {
 	'your_score_msg': 'YOUR_SCORE',
 	'all_score_msg': 'ALL_SCORE',
 	'error_msg': 'ERROR',
-	'no_questions_msg': 'NO_QUESTIONS'
-}  # ..  Add more commands if needed
-
-PROTOCOL_SERVER = {
-	"login_ok_msg": "LOGIN_OK",
+    'no_questions_msg': 'NO_QUESTIONS',
 	"login_failed_msg": "ERROR"
-}  # ..  Add more commands if needed
+}
 
 # Other constants
 
@@ -49,7 +49,7 @@ def build_message(cmd, data):
     if (len(cmd) > CMD_FIELD_LENGTH) or (len(data) > MAX_DATA_LENGTH):
         return ERROR_RETURN
     # cmd type check
-    if cmd not in PROTOCOL_CLIENT.values():
+    if (cmd not in PROTOCOL_CLIENT.values()) and (cmd not in PROTOCOL_SERVER.values()):
         return ERROR_RETURN
 
     full_cmd = cmd
