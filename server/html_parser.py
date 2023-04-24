@@ -1,8 +1,8 @@
 import html
 
 
-def fix_new_question_answers_string(new_question_answers):
-	fixed_new_question_answers = []
+def fix_new_question_answers_string(new_question_answers) -> list:
+	fixed_new_question_answers: list = []
 	for question_answer in new_question_answers:
 		fixed_question_answer = html.unescape(question_answer)
 		fixed_question_answer = fixed_question_answer.encode().decode('unicode-escape')

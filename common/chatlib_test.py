@@ -1,7 +1,7 @@
 import chatlib
 
 
-def check_build(input_cmd, input_data, expected_output):
+def check_build(input_cmd: str, input_data: str, expected_output: str) -> None:
     print("Input: ", input_cmd, input_data, "\nExpected output: ", expected_output)
     try:
         output = chatlib.build_message(input_cmd, input_data)
@@ -14,7 +14,7 @@ def check_build(input_cmd, input_data, expected_output):
         print(".....\t FAILED, output: ", output)
 
 
-def check_parse(msg_str, expected_output):
+def check_parse(msg_str: str, expected_output: str) -> None:
     print("Input: ", msg_str, "\nExpected output: ", expected_output)
 
     try:
@@ -28,7 +28,7 @@ def check_parse(msg_str, expected_output):
         print(".....\t FAILED, output: ", output)
 
 
-def main():
+def main() -> None:
     # BUILD
 
     # Valid inputs

@@ -6,13 +6,13 @@ from common.constants import SERVER_PORT, SERVER_IP
 from common import chatlib
 
 
-def __connect():
+def __connect() -> socket.socket:
     my_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     my_socket.connect((SERVER_IP, SERVER_PORT))
     return my_socket
 
 
-def __get_username():
+def __get_username() -> str:
     username = ""
     first_itr = True
     while username == "":
@@ -24,7 +24,7 @@ def __get_username():
     return username
 
 
-def __get_password():
+def __get_password() -> str:
     password = ""
     first_itr = True
     while password == "":
@@ -36,14 +36,15 @@ def __get_password():
     return password
 
 
-def __login(conn):
+def __login(conn) -> None:
     print("Connecting to " + SERVER_IP + " port " + str(SERVER_PORT))
-    valid_login = False
+    valid_login: bool = False
     while valid_login is False:
         # Input
-        username = __get_username()
-        password = __get_password()
-        data = chatlib.join_data([username, password])  # Helper method that separates username from password within '#'
+        username: str = __get_username()
+        password: str = __get_password()
+        # Helper method ('join_data') that separates username from password within '#'
+        data: str = chatlib.join_data([username, password])
 
         # Send message to server
         engine.build_and_send_message(conn, chatlib.PROTOCOL_CLIENT["login_msg"], data)

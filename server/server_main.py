@@ -5,29 +5,29 @@ from common.constants import SERVER_IP, SERVER_PORT
 import engine
 import requests_handling
 
+from engine import load_user_database, load_questions_from_web, client_sockets, chatlib, messages_to_send
+
 
 # SOCKET CREATOR
-def __setup_socket():
+def __setup_socket() -> socket.socket:
 	"""
 	Creates new listening socket and returns it
 	Receives: -
 	Returns: the socket object
 	"""
-	server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	server_socket: socket.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	server_socket.bind((SERVER_IP, SERVER_PORT))
 	server_socket.listen()
 	return server_socket
 
 
-def main():
-	from engine import load_user_database, load_questions_from_web, client_sockets, chatlib, messages_to_send
-
+def main() -> None:
 	# Initializes the global users and questions dictionaries using load functions, will be used later
 	load_user_database()
 	load_questions_from_web()
 	print("Welcome to Trivia Server!")
 	# initialize server socket
-	server_socket = __setup_socket()
+	server_socket: socket.socket = __setup_socket()
 	# Wait for new sockets or new messages from existing sockets
 	while True:
 		ready_to_read, ready_to_write, _ = select.select([server_socket] + client_sockets, client_sockets, [])

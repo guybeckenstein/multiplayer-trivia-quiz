@@ -1,7 +1,9 @@
+import socket
+
 import engine
 
 
-def send_error(conn, error_msg):
+def send_error(conn, error_msg) -> None:
 	"""
 	Send error message with given message
 	Receives: socket, message error string from called function
@@ -15,7 +17,7 @@ def send_error(conn, error_msg):
 
 
 # MESSAGE HANDLING
-def handle_getscore_message(conn, username):
+def handle_getscore_message(conn, username) -> None:
 	from engine import chatlib, users
 
 	cmd = chatlib.PROTOCOL_SERVER['your_score_msg']
@@ -23,7 +25,7 @@ def handle_getscore_message(conn, username):
 	engine.build_and_send_message(conn, cmd, str(data))
 
 
-def handle_question_message(conn):
+def handle_question_message(conn) -> None:
 	from engine import chatlib, logged_users
 
 	cmd = chatlib.PROTOCOL_SERVER['your_question_msg']
@@ -34,7 +36,7 @@ def handle_question_message(conn):
 		send_error(conn, "No more questions for {user}!".format(user=logged_users[conn]))
 
 
-def handle_answer_message(conn, answer):
+def handle_answer_message(conn, answer) -> None:
 	from engine import logged_users, chatlib, users
 
 	curr_user = logged_users[conn]
@@ -51,7 +53,7 @@ def handle_answer_message(conn, answer):
 	engine.build_and_send_message(conn, cmd, data)
 
 
-def handle_highscore_message(conn):
+def handle_highscore_message(conn) -> None:
 	from engine import chatlib, users
 
 	cmd = chatlib.PROTOCOL_SERVER['all_score_msg']
@@ -70,7 +72,7 @@ def handle_highscore_message(conn):
 	engine.build_and_send_message(conn, cmd, data)
 
 
-def handle_logged_message(conn):
+def handle_logged_message(conn) -> None:
 	from engine import chatlib, logged_users
 
 	cmd = chatlib.PROTOCOL_SERVER['logged_answer_msg']
@@ -78,7 +80,7 @@ def handle_logged_message(conn):
 	engine.build_and_send_message(conn, cmd, data)
 
 
-def handle_logout_message(conn):
+def handle_logout_message(conn: socket.socket) -> None:
 	from engine import chatlib, client_sockets, logged_users
 
 	"""
@@ -94,7 +96,7 @@ def handle_logout_message(conn):
 	conn.close()
 
 
-def handle_login_message(conn, data):
+def handle_login_message(conn: socket.socket, data: str) -> None:
 	from engine import chatlib, users, logged_users
 
 	"""
@@ -124,7 +126,7 @@ def handle_login_message(conn, data):
 			logged_users[conn] = username
 
 
-def handle_client_message(conn, cmd, data):
+def handle_client_message(conn, cmd, data) -> None:
 	from engine import logged_users
 
 	"""
